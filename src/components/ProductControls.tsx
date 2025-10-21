@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom';
 
 interface ProductControlsProps {
     onSortChange: (value: string) => void;
@@ -34,15 +35,22 @@ const ProductControls = ({ onSortChange, onCategoryChange, onViewToggle, categor
 
             <select className='form-select w-auto' value={selectedCategory} onChange={handleCategoryChange}>
                 <option value='all'>All Categories</option>
-                {categories.map((cat) => (
-                    <option key={cat} value={cat}>{cat.charAt(0).toUpperCase() + cat.slice(1)}</option>
-                ))}
+                {categories.map((cat) => {
+                    if (!cat) return null
+
+                    const label = cat.charAt(0).toUpperCase() + cat.slice(1)
+                    return (
+                        <option key={cat} value={cat}>{label}</option>
+                    )
+                })}
             </select>
 
             <div className='btn-group' role='group'>
                 <button className='btn btn-outline-primary' onClick={() => onViewToggle('grid')}>Grid</button>
                 <button className='btn btn-outline-primary' onClick={() => onViewToggle('list')}>List</button>
             </div>
+
+            <Link to='/products/create' className='btn btn-primary'>+ Add Product</Link>
         </div>
     )
 }

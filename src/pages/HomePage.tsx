@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react'
 import type { Product } from '../types/Product'
 import { useQuery } from '@tanstack/react-query'
 import { useCart } from '../features/useCart'
+import { collection, getDocs, query, where } from 'firebase/firestore'
+import { db } from '../firebaseConfig'
 
 const HomePage = () => {
     const [sort, setSort] = useState('default')
@@ -18,20 +20,18 @@ const HomePage = () => {
     }
    
     const fetchCategories = async (): Promise<string[]> => {
-        const response = await fetch('https://fakestoreapi.com/products/categories')
-        if (!response.ok) throw new Error('Failed to fetch products')
-            return response.json()
+        const productsRef = collection(db, 'products')
+        const snapshot = await getDocs(productsRef)
+        const allCategories = snapshot.docs.map(doc => (doc.data() as Product).category)
+        return Array.from(new Set(allCategories))
     }
 
     const fetchProductsByCategory = async (): Promise<Product[]> => {
-        const url = 
-            category === 'all'
-                ? 'https://fakestoreapi.com/products'
-                : `https://fakestoreapi.com/products/category/${category}`
+        const productsRef = collection(db, 'products')
+        const q = category === 'all' ? query(productsRef) : query(productsRef, where('category', '==', category))
 
-        const response = await fetch(url)
-        if (!response.ok) throw new Error('Failed to fetch products')
-        return response.json()
+        const snapshot = await getDocs(q)
+        return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data(),} as Product))
     }
 
     const { data: categories = [], isLoading: loadingCategories} =useQuery({

@@ -13,8 +13,8 @@ const ProductGrid: React.FC<ProductGridProps> = ({ products, viewMode, onAddToCa
     return (
         <Container fluid className='py-4'>
             <Row className='g-4'>
-                {products.map((product: Product) => (
-                    <Col key={product.id} xs={12} sm={viewMode === 'list'? 12 : 6} md={viewMode === 'list' ? 12 : 4} lg={viewMode === 'list' ? 12 : 3}>
+                {products.map((product: Product, index: number) => (
+                    <Col key={product.id || index} xs={12} sm={viewMode === 'list'? 12 : 6} md={viewMode === 'list' ? 12 : 4} lg={viewMode === 'list' ? 12 : 3}>
                         <ProductCard {...product} viewMode={viewMode} onAddToCart={onAddToCart} />
                     </Col>
                 ))}

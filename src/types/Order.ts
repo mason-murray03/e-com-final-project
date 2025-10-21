@@ -1,9 +1,13 @@
-import type {CartItem} from './Cart'
-
 export interface Order {
-    id: number
+    id: string
     userId: number
-    items: CartItem[]
+    items: {
+        id: string
+        title: string
+        price: number
+        quantity: number
+        image?: string
+    }[];
     total: number
-    createdAt: string
+    createdAt: Date | { seconds: number; nanoseconds: number}
 }

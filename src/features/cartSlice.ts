@@ -41,11 +41,11 @@ const cartSlice = createSlice({
             }
             saveCartToLocalStorage(state.items)
         },
-        removeFromCart(state, action: PayloadAction<number>) {
+        removeFromCart(state, action: PayloadAction<string>) {
             state.items = state.items.filter(item => item.id !== action.payload)
             saveCartToLocalStorage(state.items)
         },
-        updateQuantity(state, action: PayloadAction<{id: number; quantity: number}>) {
+        updateQuantity(state, action: PayloadAction<{id: string; quantity: number}>) {
             const item = state.items.find(i => i.id === action.payload.id)
             if (item) {
                 item.quantity = action.payload.quantity

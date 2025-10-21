@@ -1,16 +1,31 @@
 import { useCart } from '../features/useCart';
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../types/useAuth';
+import { createOrder } from '../service/orderService';
 
 const OrderSummaryPage = () => {
   const { items, total, clear } = useCart();
   const navigate = useNavigate();
+  const { user } = useAuth()
 
-  const handlePlaceOrder = () => {
-    clear(); // clears Redux cart
-    localStorage.removeItem('cart'); // clears persisted cart
-    alert('✅ Order placed!');
-    navigate('/'); // redirect to homepage
+  const handlePlaceOrder = async () => {
+    const totalPrice = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    if (!user?.uid) {
+      alert('Yuo must be logged in to place an order.')
+      return
+    }
+
+    try {
+      await createOrder(user.uid, items, totalPrice);
+      clear(); // clears Redux cart
+      localStorage.removeItem('cart'); // clears persisted cart
+      alert('✅ Order placed!');
+      navigate('/orders'); // or '/account'
+    } catch (err) {
+      console.error('Order placement failed:', err);
+      alert('❌ Something went wrong. Please try again.');
+    }
   };
 
   return (

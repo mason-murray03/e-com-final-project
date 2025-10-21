@@ -7,8 +7,8 @@ export const useCart = () => {
     const dispatch = useDispatch()
     const items = useAppSelector(state => state.cart.items)
     const addItem = (item: CartItem) => dispatch(addToCart(item))
-    const removeItem = (id: number) => dispatch(removeFromCart(id))
-    const updateItemQuantity = (id: number, quantity: number) => dispatch(updateQuantity({id, quantity}))
+    const removeItem = (id: string) => dispatch(removeFromCart(id))
+    const updateItemQuantity = (id: string, quantity: number) => dispatch(updateQuantity({id, quantity}))
     const clear = () => dispatch(clearCart())
     const total = items.reduce((sum: number, item: CartItem) => sum + item.price * item.quantity, 0)
 
