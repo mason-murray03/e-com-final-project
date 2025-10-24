@@ -19,11 +19,11 @@ const orderSlice = createSlice({
             const total = action.payload.items.reduce(( sum:number, item: CartItem) => sum +item.price * item.quantity, 0)
 
             const newOrder: Order = {
-                id: Date.now(),
+                id: Date.now().toString(),
                 userId: action.payload.userId,
                 items: action.payload.items,
                 total,
-                createdAt: new Date().toISOString(),
+                createdAt: new Date(),
             }
 
             state.history.push(newOrder)

@@ -11,6 +11,8 @@
     "moduleResolution": "Node",
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "jsx": "react-jsx",                
+  "jsxImportSource": "react"        
   }
 }

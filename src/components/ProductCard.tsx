@@ -16,7 +16,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ title, price, image, descript
                 <Card.Title className='fw-bold'>{title}</Card.Title>
                 <Card.Text className='text-muted'>${price ? price.toFixed(2) : 'N/A'}</Card.Text>
                 <Card.Text className='small text-secondary'>{description}</Card.Text>
-                <Card.Text className='small text-warning'>⭐ {rating?.rate ?? 'N/A'} ({rating?.count ?? 0} reviews)</Card.Text>
+                <Card.Text data-testid="product-rating" className='small text-warning'>⭐ {rating?.rate ?? 'N/A'} ({rating?.count ?? 0} reviews)</Card.Text>
 
                 <Button variant='success' onClick={() => onAddToCart({ id, title, price, image, description, rating, category })}>Add to Cart</Button>
 
