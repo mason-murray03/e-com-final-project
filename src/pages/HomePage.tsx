@@ -85,13 +85,13 @@ const HomePage = () => {
             <div id='stackedGoodsCarousel' className='carousel slide' data-bs-ride='carousel'>
                 <div className='carousel-inner'>
                     <div className='carousel-item active'>
-                        <img src='../src/assets/carousel-clothing.png' className='d-block w-100' alt='Slide 1' />
+                        <img src='/images/carousel-clothing.png' className='d-block w-100' alt='Slide 1' />
                     </div>
                     <div className='carousel-item'>
-                        <img src='../src/assets/carousel-electronics.png' className='d-block w-100' alt='Slide 2' />
+                        <img src='/images/carousel-electronics.png' className='d-block w-100' alt='Slide 2' />
                     </div>
                     <div className='carousel-item'>
-                        <img src='../src/assets/carousel-shoes.png' className='d-block w-100' alt='Slide 3' />
+                        <img src='/images/carousel-shoes.png' className='d-block w-100' alt='Slide 3' />
                     </div>
                 </div>
 
